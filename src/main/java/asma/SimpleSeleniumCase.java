@@ -29,20 +29,23 @@ public class SimpleSeleniumCase {
             options.setBinary(System.getenv().get("ASMA_CHROME_BIN"));
             options.setHeadless(false);
 
-            options.addArguments("--remote-debugging-port=9222");
             options.addArguments("--disable-gpu");
             options.addArguments("--no-sandbox");
+            options.addArguments("--user-data-dir=" + System.getenv().get("ASMA_HOME")):
 
             //Step 1- Driver Instantiation: Instantiate driver object as ChromeDriver
 
             driver = new ChromeDriver(options);
             ((ChromeDriver) driver).setLogLevel(Level.ALL);
+            Thread.sleep(1000);
 
-            // driver.getErrorHandler().setIncludeServerErrors(true);
-            // driver.get("about:blank");
-            // driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+                driver.getErrorHandler().setIncludeServerErrors(true);
+                driver.get("about:blank");
+                Thread.sleep(1000);
 
-            // driver.setErrorHandler(err);
+                driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+                driver.setErrorHandler(err);
 
         } catch (Throwable t) {
             System.out.println(t.getMessage());
@@ -56,7 +59,9 @@ public class SimpleSeleniumCase {
     public void LoadHome() {
 
 
-        driver.get("https://www.apica.io");
+        driver.navigate.to("https://www.apica.io");
+        
+        Thread.sleep(1000);
         Assert.assertTrue("title check failed", driver.getTitle().toLowerCase().contains("apica"));
 
 
@@ -68,10 +73,10 @@ public class SimpleSeleniumCase {
             throws InterruptedException {
 
         //Step 2- Navigation: Open a website
-        driver.navigate().to("https://www.apicasystems.com/");
+        driver.navigate().to("https://asm.apicasystems.com/");
         //Step 3- Assertion: Check its title is correct
         //assertEquals method Parameters: Expected Value, Actual Value, Assertion Message
-        Assert.assertTrue("title check failed", driver.getTitle().toLowerCase().contains("apica"));
+        Assert.assertTrue("title check failed", driver.getTitle().toLowerCase().contains("Synthetic"));
 
 
     }
